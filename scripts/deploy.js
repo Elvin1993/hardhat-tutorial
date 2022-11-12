@@ -1,31 +1,41 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
-const hre = require("hardhat");
+const hardhat = require("hardhat");
+const { ethers } = require("hardhat");
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
-
-  const lockedAmount = hre.ethers.utils.parseEther("1");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
-  console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+async function verify(contractAddress, args) {
+  console.log("verifying contract", contractAddress, args);
+  try {
+    await run("verify:verify", {
+      address: contractAddress,
+      constructorArguments: args
+    })
+  } catch (e) {
+    if(e.message.toLowerCase().includes("already verified")) {
+      console.log("Already Verified!");
+    }else {
+      console.log(e)
+    }
+  }
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
+async function main() {
+  const [owner] = await ethers.getSigners();
+  const Token =await ethers.getContractFactory("CocoToken");
+  const CocoToken = await Token.deploy();
+
+  console.log('CocoToken 部署后的合约地址是:')
+  console.log(CocoToken.address);
+
+  //  deploy成功后verify  contract
+  console.log(network.config)
+  // goerli 并且提供了etherscan apiKey 就进行contract verify
+  if(network.config.chainId === 1 && process.env.ETHERSCAN_API_KEY) {
+    console.log("Waitingfor block confirmations...");
+    await CocoToken.deployTransaction.wait(5);
+    await verify(CocoToken.address, [])
+  }
+}
+
+main().catch( error =>{
   console.error(error);
   process.exitCode = 1;
-});
+})
