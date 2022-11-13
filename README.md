@@ -1,13 +1,13 @@
-# Sample Hardhat Project
+# hardhat 练习
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
+### 常用命令
+> ps: 具体代码见 package.json scripts里面
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+// 编译合约
+yarn build
+// 运行测试用例
+yarn test
+// 部署合约
+yarn deploy:all
 ```

@@ -31,6 +31,7 @@ async function main() {
   // goerli 并且提供了etherscan apiKey 就进行contract verify
   if(network.config.chainId === 5 && process.env.ETHERSCAN_API_KEY) {
     console.log("Waitingfor block confirmations...");
+    // 等待区块确认
     await OpenzeppelinCocoToken.deployTransaction.wait(5);
     await verify(OpenzeppelinCocoToken.address, [])
   }
