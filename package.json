@@ -6,11 +6,14 @@
     "deploy:goerli": "hardhat run scripts/deploy.js --network goerli",
     "deploy:ganache": "hardhat run scripts/deploy.js --network ganache",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:erc20:goerli": "hardhat run scripts/deploy2.js --network goerli",
+    "deploy:all": "yarn deploy:goerli && yarn deploy:erc20:goerli",
     "verify": "hardhat verify --network goerli ",
     "test": "hardhat test"
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@openzeppelin/contracts": "^4.8.0",
     "yarn": "^1.22.19"
   },
   "name": "hardhat-tutorial",
