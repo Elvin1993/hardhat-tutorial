@@ -79,4 +79,30 @@ describe("CocoToken contract", function () {
       CocoToken.connect(user2).transferOwnership(user1.address)
     ).to.be.revertedWith("Ownable: caller is not the owner");
   });
+
+  it("test transferHasBug A -> B 500 should success", async () => {
+    const beforeOwnerBalance = await CocoToken.balanceOf(owner.address);
+    const beforeUser1Balance = await CocoToken.balanceOf(user1.address);
+    console.log(
+      `转账之前的余额: owner: ${beforeOwnerBalance} user1: ${beforeUser1Balance}`
+    );
+
+    await expect(CocoToken.transferHasBug(user1.address, 500)).to.changeTokenBalances(CocoToken,[owner, user1], [-500, 500]);
+  })
+
+  it("test transferHasBug A -> A 500 A balance add 500 this is a bug", async () => {
+    const beforeOwnerBalance = await CocoToken.balanceOf(owner.address);
+    console.log(
+      `转账之前的余额: owner: ${beforeOwnerBalance} `
+    );
+    await CocoToken.transferHasBug(owner.address, 500)
+    await CocoToken.transferHasBug(owner.address, 500)
+    await CocoToken.transferHasBug(owner.address, 500)
+    await CocoToken.transferHasBug(owner.address, 500)
+    const afterOwnerBalance = await CocoToken.balanceOf(owner.address);
+    console.log(
+      `转账之后的余额: owner: ${afterOwnerBalance} `
+    );
+    expect(afterOwnerBalance).to.equal(+beforeOwnerBalance + 500 * 4);
+  })
 });

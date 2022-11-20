@@ -7,9 +7,10 @@
     "deploy:ganache": "hardhat run scripts/deploy.js --network ganache",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
     "deploy:erc20:goerli": "hardhat run scripts/deploy2.js --network goerli",
+    "deploy3": "hardhat run scripts/deploy3.js --network goerli",
     "deploy:all": "yarn deploy:goerli && yarn deploy:erc20:goerli",
     "verify": "hardhat verify --network goerli ",
-    "test": "hardhat test"
+    "test": "hardhat test --trace"
   },
   "dependencies": {
     "-": "^0.0.1",
@@ -35,6 +36,7 @@
     "ethers": "^5.4.7",
     "hardhat": "^2.12.2",
     "hardhat-gas-reporter": "^1.0.8",
+    "hardhat-tracer": "^1.1.1",
     "solidity-coverage": "^0.8.0",
     "typechain": "^8.1.0"
   }

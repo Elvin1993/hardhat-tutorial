@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity 0.8.17;
 
 import "hardhat/console.sol";
 
@@ -47,6 +47,19 @@ contract CocoToken {
         balances[msg.sender] -= amount;
         balances[to] += amount;
         emit Transfer(msg.sender, to, amount);
+    }
+
+    /**
+     * A 转账给B 正常
+     * A 转账给A自己 因为设置balances[to]的时候取的是` balances[msg.sender] -= amount;`之前的余额 所以每次A 转账给* A的时候 他的balances都会增加amount
+     */
+    function transferHasBug(address to, uint256 amount) public virtual returns (bool) {
+        require(balances[msg.sender] >= amount, "Not enough tokens");
+        uint256 amountTo = balances[to];
+        balances[msg.sender] -= amount;
+        balances[to] = amountTo + amount;
+        emit Transfer(msg.sender, to, amount);
+        return true;
     }
 
     function balanceOf(address account) external view returns (uint256) {

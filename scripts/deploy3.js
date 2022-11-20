@@ -7,7 +7,7 @@ async function verify(contractAddress, args) {
     await run("verify:verify", {
       address: contractAddress,
       constructorArguments: args,
-      contract: "contracts/OpenzeppelinCocoToken.sol:OpenzeppelinCocoToken"
+      contract: "contracts/MyToken.sol:MyToken"
     })
   } catch (e) {
     if(e.message.toLowerCase().includes("already verified")) {
@@ -20,11 +20,11 @@ async function verify(contractAddress, args) {
 
 async function main() {
   const [owner] = await ethers.getSigners();
-  const Token =await ethers.getContractFactory("OpenzeppelinCocoToken");
-  const OpenzeppelinCocoToken = await Token.deploy();
+  const Token =await ethers.getContractFactory("MyToken");
+  const MyToken = await Token.deploy();
 
-  console.log('OpenzeppelinCocoToken 部署后的合约地址是:')
-  console.log(OpenzeppelinCocoToken.address);
+  console.log('MyToken 部署后的合约地址是:')
+  console.log(MyToken.address);
 
   //  deploy成功后verify  contract
   console.log(network.config)
@@ -32,8 +32,8 @@ async function main() {
   if(network.config.chainId === 5 && process.env.ETHERSCAN_API_KEY) {
     console.log("Waitingfor block confirmations...");
     // 等待区块确认
-    await OpenzeppelinCocoToken.deployTransaction.wait(5);
-    await verify(OpenzeppelinCocoToken.address, [])
+    await MyToken.deployTransaction.wait(5);
+    await verify(MyToken.address, [MyToken.address])
   }
 }
 
