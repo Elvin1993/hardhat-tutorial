@@ -22,6 +22,10 @@ contract TinTinTestToken is ERC20, Ownable {
         _mint(msg.sender, 1000000 * (10**uint256(decimals())));
     }
 
+    function freeMint() public {
+        _mint(msg.sender, 10 * (10**uint256(decimals())));
+    }
+
     function addToWhitelist(address whiteAddress) public onlyOwner{
         require(!whiteMap[whiteAddress], "already been whitelisted");
         whiteMap[whiteAddress] = true;

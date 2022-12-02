@@ -57,4 +57,12 @@ describe("TinTinTestToken", function () {
     expect(afterBalance).to.above(beforeBalance);
   })
 
+  it("freeMint", async () => {
+    const beforeBalance = await mytoken.balanceOf(user1.address);
+    await mytoken.connect(user1).freeMint();
+    const afterBalance = await mytoken.balanceOf(user1.address);
+    console.log(afterBalance, beforeBalance)
+    expect(afterBalance).to.above(beforeBalance);
+  })
+
 });
