@@ -22,14 +22,19 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
 module.exports = {
   solidity: "0.8.17",
   networks: {
-    ganache: {
-      url: "http://127.0.0.1:7545",
-      accounts: [`0x${GANACHE_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
-    },
-    goerli: {
-      url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+    // ganache: {
+    //   url: "http://127.0.0.1:7545",
+    //   accounts: [`0x${GANACHE_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
+    // },
+    // goerli: {
+    //   url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+    //   accounts: [`0x${GOERLI_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
+    //   chainId: 5,
+    // },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/48abdcdb1e2d48da8d1dbf71fef41442`,
       accounts: [`0x${GOERLI_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
-      chainId: 5,
+      chainId: 11155111,
     },
   },
   etherscan: {

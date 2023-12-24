@@ -13,4 +13,6 @@ yarn deploy:all
 ```
 
 
-- 0x99862bbF4DcC7E3a1DD4FFB116a9b956Ff89354A
+- sepolia lvtoken address 0xB9314C2eacB4c956D429d548F98796a0f72a70fa
+
+- sepolia airdrop address 0x57e4535f5A7A82572368aB3c9D6E7d8CE2f89bE1
