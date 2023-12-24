@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
-require("@nomiclabs/hardhat-etherscan");
+// require("@nomiclabs/hardhat-etherscan");
+// require("@nomicfoundation/hardhat-verify");
 require("hardhat-tracer");
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -36,8 +37,26 @@ module.exports = {
       accounts: [`0x${GOERLI_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
       chainId: 11155111,
     },
+
+    arbitrumSepolia: {
+      url: `https://arbitrum-sepolia.infura.io/v3/48abdcdb1e2d48da8d1dbf71fef41442`,
+      accounts: [`0x${GOERLI_PRIVATE_KEY}`, `0x${USER1_PRIVATE_KEY}`, `0x${USER2_PRIVATE_KEY}`],
+      chainId: 421614,
+    },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY
+    apiKey: {
+      arbitrumSepolia: 'S9QSJETNXRDYIT3TR3DMF1C8H58WM8ARP2'
+    },
+    customChains: [
+      {
+        network: "arbitrumSepolia",
+        chainId: 421614,
+        urls: {
+          apiURL: "https://api-sepolia.arbiscan.io/api",
+          browserURL: "https://sepolia.arbiscan.io/"
+        }
+      }
+    ]
   }
 };
